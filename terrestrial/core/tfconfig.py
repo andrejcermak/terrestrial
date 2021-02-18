@@ -47,7 +47,7 @@ class TerraformConfig:
         return self._tfcmd('init')
 
     def validate(self):
-        return self._tfcmd('validate', check_variables=False)
+        return self._tfcmd('validate')
 
     def __enter__(self):
         return self
