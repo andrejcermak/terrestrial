@@ -11,5 +11,5 @@ logging.basicConfig(level=logging.INFO,format=log_format)
 
 
 if __name__ == '__main__':
-    argv = ['worker'].extend(sys.argv[1:])
+    argv = ['worker'] + sys.argv[1:]
     app.worker_main(argv)
