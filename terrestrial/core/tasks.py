@@ -57,6 +57,7 @@ def terraform(self, config, action, var={}, workspace='default'):
     """
 
     task_logger.debug(f'Spawning Terraform {action} process for {config}')
+    logger.debug(f'Spawning Terraform {action} process for {config}')
 
     with TerraformWorker(
         config_path=f'{app.conf.TF_CONF_PATH}/{config}',
@@ -90,14 +91,13 @@ def list_celery_tasks(state=None):
         if not tasks:
             raise ValueError(
                 'no workers connected?')
-
+        print(tasks)
         w_tasks = []
         if isinstance(tasks, list):
             for t in tasks:
                 parse_tasks(t)
 
         worker = list(tasks.keys())[0]
-        logger.debug(f'Listing tasks of a worker "{worker}"')
 
         if tasks[worker]:
             w_tasks = [t['id'] for t in tasks[worker]]
@@ -106,6 +106,11 @@ def list_celery_tasks(state=None):
 
     inspect = app.control.inspect()
     parsed = set()
+    print(state)
+    print("inspect active: ", inspect.active())
+    print("inspect reserved: ", inspect.reserved())
+    print("inspect scheduled: ", inspect.scheduled())
+    print("inspect registered: ", inspect.registered())
 
     if state == STARTED or state is None:
         parse_tasks(inspect.active(), parsed)
@@ -120,6 +125,13 @@ def list_celery_tasks(state=None):
 @app.task(bind=True)
 def get_task_state(self, task_id):
     task = self.AsyncResult(task_id)
+    print(dir(task))
+    print(task.worker)
+    print(task.info)
+    print("queue: ", task.queue)
+    print("ready: ", task.ready())
+    print("as_list: ", task.as_list())
+    print("status: ", task.status)
     return task.state
 
 

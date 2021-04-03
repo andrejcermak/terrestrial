@@ -55,6 +55,7 @@ def get_result(task_id):
         task = get_task_result.apply((task_id,))
         if task.get():
             rc, stdout, stderr = task.get()
+            print(task.get())
         else:
             raise RuntimeError(f'ID is incorrect or task is still pending')
     except Exception as e:

@@ -21,4 +21,8 @@ RUN chown -R nobody:nobody /terrestrial
 USER nobody
 WORKDIR /terrestrial
 
+RUN cd terrestrial/ && \
+    git clone --recurse-submodules https://github.com/bio-platform/bioportal_configs.git && \
+    mv bioportal_configs configurations
+
 ENTRYPOINT ["/terrestrial/entrypoint.sh"]
