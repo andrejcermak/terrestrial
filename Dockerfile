@@ -1,6 +1,6 @@
 FROM python:rc-alpine
 
-ARG TERRAFORM_VERSION=0.14.6
+ARG TERRAFORM_VERSION=0.13.5
 ARG HASHICORP_RELEASES=https://releases.hashicorp.com
 
 RUN apk add --no-cache --update \
