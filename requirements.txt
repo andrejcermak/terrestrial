@@ -6,3 +6,4 @@ Flask-RESTful>=0.3.6
 python-terraform>=0.10.0
 redis>=3.2.0
 gunicorn>=19.9.0
+ansible>=3.3.0
